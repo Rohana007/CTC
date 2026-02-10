@@ -30,52 +30,54 @@ This design document provides the complete technical architecture, system design
 
 ### High-Level Architecture
 
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                     Frontend Layer (React PWA)                       │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐             │
-│  │ NEP 2020     │  │  Dictionary  │  │   Market     │             │
-│  │  Modules     │  │  & Vocab     │  │  Disruptors  │             │
-│  │  (1-10)      │  │  Builder     │  │  (5 features)│             │
-│  └──────────────┘  └──────────────┘  └──────────────┘             │
-│  ┌──────────────────────────────────────────────────────┐          │
-│  │  Core Components: Voice, Language, Offline, Audio    │          │
-│  └──────────────────────────────────────────────────────┘          │
-└─────────────────────────────────────────────────────────────────────┘
-                            │
-                            │ REST API (HTTPS)
-                            ▼
-┌─────────────────────────────────────────────────────────────────────┐
-│                    Backend Layer (Express + TypeScript)              │
-│  ┌──────────────────────────────────────────────────────────────┐  │
-│  │              Enhanced Services                                │  │
-│  │  • AIService (GPT-4 + Mock)                                  │  │
-│  │  • PedagogicalAnalyzer                                       │  │
-│  │  • ProjectContextService                                     │  │
-│  │  • StressTestService                                         │  │
-│  │  • ArchitectureService                                       │  │
-│  │  • StyleAdapterService                                       │  │
-│  │  • VivaInterviewService                                      │  │
-│  │  • DictionaryService                                         │  │
-│  │  • TranslationService                                        │  │
-│  │  • VoiceService                                              │  │
-│  └──────────────────────────────────────────────────────────────┘  │
-└─────────────────────────────────────────────────────────────────────┘
-                            │
-                            │ Storage & External APIs
-                            ▼
-┌─────────────────────────────────────────────────────────────────────┐
-│                    Data & Integration Layer                          │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐             │
-│  │ LocalStorage │  │   IndexedDB  │  │   MongoDB    │             │
-│  │  (Phase 1)   │  │   (Offline)  │  │  (Phase 2)   │             │
-│  └──────────────┘  └──────────────┘  └──────────────┘             │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐             │
-│  │  OpenAI API  │  │  Google Cloud│  │  Cloudflare  │             │
-│  │   (GPT-4)    │  │  (Speech/TTS)│  │   (CDN/Edge) │             │
-│  └──────────────┘  └──────────────┘  └──────────────┘             │
-└─────────────────────────────────────────────────────────────────────┘
-```
+![High-Level AWS Architecture](./generated-diagrams/01_high_level_architecture.png)
+
+**Architecture Overview:**
+- **Frontend Layer**: React PWA with NEP 2020 modules, Dictionary, and Market Disruptor features
+- **Backend Layer**: Express + TypeScript with enhanced AI services
+- **Data Layer**: LocalStorage, IndexedDB, and MongoDB for scalable storage
+- **Integration Layer**: OpenAI API, Google Cloud Speech/TTS, and Cloudflare CDN
+
+### Application Layer Architecture
+
+![Application Layer](./generated-diagrams/02_application_layer.png)
+
+**Application Components:**
+- **Load Balancer**: Distributes traffic across multiple application servers
+- **Web Servers**: Handle HTTP requests and serve the React PWA
+- **API Gateway**: Routes API requests to appropriate backend services
+- **Service Layer**: Microservices for AI, pedagogy, translation, and voice processing
+
+### Data Layer Architecture
+
+![Data Layer](./generated-diagrams/03_data_layer.png)
+
+**Data Storage Strategy:**
+- **Primary Database**: MongoDB for user data, progress tracking, and content
+- **Cache Layer**: Redis for session management and frequently accessed data
+- **Object Storage**: S3 for media files, diagrams, and user-generated content
+- **Backup**: Automated daily backups with point-in-time recovery
+
+### AI Services Architecture
+
+![AI Services](./generated-diagrams/04_ai_services.png)
+
+**AI Processing Pipeline:**
+- **OpenAI Integration**: GPT-4 for code explanation, concept generation, and adaptive learning
+- **Vision Service**: Multimodal AI for handwritten code recognition and diagram analysis
+- **Speech Services**: Google Cloud Speech-to-Text and Text-to-Speech for voice features
+- **Translation**: Multi-language support for 12 Indian languages
+
+### Security Architecture
+
+![Security Architecture](./generated-diagrams/05_security.png)
+
+**Security Layers:**
+- **Edge Protection**: Cloudflare WAF and DDoS protection
+- **Authentication**: JWT-based auth with secure token management
+- **Encryption**: TLS 1.3 for data in transit, AES-256 for data at rest
+- **Code Sandbox**: Isolated execution environment for user code
+- **Monitoring**: CloudWatch for logging, alerting, and security monitoring
 
 ---
 
