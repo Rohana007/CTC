@@ -1,198 +1,261 @@
-# Concept-to-Code Tutor (CTC Tutor)
+# CTC Tutor - AI-Powered Learning Platform for Bharat
 
-An AI-powered learning assistant that converts abstract concepts into structured, layered understanding and bridges the gap between theory and implementation.
+> 🏆 **AI for Bharat Hackathon Submission**
+
+An AI-powered educational platform that makes programming accessible to students across India in 10 regional languages, using Amazon Bedrock and AWS serverless architecture.
+
+## 🌐 Live Demo
+
+- **Production URL**: https://d3hrbeknvapj0l.cloudfront.net
+- **Demo Video**: [Watch Demo](YOUR_DEMO_VIDEO_LINK_HERE)
+- **API Endpoint**: https://x1gs5a0o8a.execute-api.us-east-1.amazonaws.com/dev
 
 ## 🎯 Problem Statement
 
-Learning technical concepts is inefficient because:
-- Explanations are either too abstract or too code-heavy
-- Learners jump between multiple tools (videos, blogs, AI chats)
-- Existing AI tools respond conversationally, not pedagogically
+**Challenge**: Students in rural India struggle to learn programming due to:
+- Language barriers (English-only resources)
+- Lack of personalized tutoring
+- Limited access to quality educational content
+- Difficulty understanding complex programming concepts
 
-CTC Tutor improves **conceptual clarity, learning speed, and developer understanding** using AI in a meaningful way.
+**Solution**: CTC Tutor provides AI-powered, multilingual programming education that:
+- Explains concepts in 10 Indian languages (Hindi, Marathi, Tamil, Telugu, Bengali, Gujarati, Kannada, Malayalam, Punjabi, English)
+- Uses Socratic method for deeper understanding
+- Provides instant code analysis and feedback
+- Works offline-first for low-connectivity areas
+- Completely free and accessible to all
 
 ## ✨ Features
 
-### Core Learning Engine
-- **🧠 Concept Explanation Engine**: Multi-layered explanations (intuition → analogy → technical → step-by-step)
-- **👁️ Visual Representation**: Interactive diagrams and step-by-step visualizations
-- **⚡ Concept-to-Code Generator**: Convert explained logic into executable Python code
-- **🔍 Code Understanding Mode**: Analyze and explain existing code snippets
-- **⚠️ Common Mistake Analysis**: Identify and explain frequent beginner errors
-- **🎯 Adaptive Learning**: Context-aware explanations that adapt to user patterns
+### 🌍 Multilingual Support (10 Languages)
+- Hindi, Marathi, Tamil, Telugu, Bengali, Gujarati, Kannada, Malayalam, Punjabi, English
+- AI-powered translations using Amazon Bedrock
+- Voice input and text-to-speech in all languages
 
-### Smart Features
-- **📚 Revision Summaries**: Key takeaways, mental models, and exam traps
-- **🔄 Feedback Loop**: Learn from user confusion patterns
-- **📊 Complexity Analysis**: Time and space complexity explanations
-- **🎨 Syntax Highlighting**: Beautiful code presentation with annotations
+### 🧠 AI-Powered Learning Features
+- **Concept Explainer**: Multi-layered explanations (intuition → analogy → technical → code)
+- **Code Analyzer**: Dry-run tables, complexity analysis, edge cases, best practices
+- **Viro AI Tutor**: Socratic method teaching with 6 emotion states
+- **One-Tap Dictionary**: Instant technical term explanations with code examples
+- **Vision Analysis**: Analyze handwritten code and diagrams via image upload
+
+### 📱 Progressive Web App (PWA)
+- Works offline with service workers
+- Installable on mobile devices
+- Fast loading with IndexedDB caching
+- Responsive design for all screen sizes
+
+## 🏗️ AWS Architecture
+
+![AWS Architecture](generated-diagrams/ctc-tutor-aws-architecture.png)
+
+### Serverless Architecture Components
+
+- **Frontend**: React PWA hosted on S3 + CloudFront CDN
+- **API Layer**: API Gateway with REST endpoints
+- **Compute**: 5 AWS Lambda functions (Node.js 20.x, ARM64)
+  - Concept Explainer Handler
+  - Code Analyzer Handler
+  - Viro Assistant Handler
+  - Dictionary Service Handler
+  - Vision Analyzer Handler
+- **AI Service**: Amazon Bedrock (Claude 3 Sonnet & Haiku)
+- **Monitoring**: CloudWatch Logs, Metrics, and Alarms
+
+**Why AWS Generative AI?**
+- Multilingual support requires advanced language models
+- Personalized learning needs adaptive AI responses
+- Socratic tutoring requires conversational AI
+- Code analysis needs deep understanding of programming concepts
+- Vision analysis for handwritten code recognition
+
+See [AWS Architecture Documentation](docs/AWS_ARCHITECTURE.md) for detailed information.
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: React 18 + TypeScript + Tailwind CSS
-- **Backend**: Node.js + Express + TypeScript
-- **AI Integration**: OpenAI GPT-4 API
-- **Diagrams**: Mermaid.js for visual representations
-- **Code Highlighting**: Prism.js with syntax highlighting
-- **Icons**: Lucide React for consistent UI
+### Frontend
+- React 18 + TypeScript + Tailwind CSS
+- Progressive Web App (PWA) with service workers
+- Web Speech API for voice input/output
+- IndexedDB for offline caching
 
-## 🚀 Quick Start
+### Backend (AWS Serverless)
+- AWS Lambda (Node.js 20.x, ARM64)
+- Amazon Bedrock (Claude 3 Sonnet, Claude 3 Haiku)
+- API Gateway (REST API)
+- CloudWatch (Monitoring & Logging)
 
-1. **Install all dependencies:**
-   ```bash
-   npm run install:all
-   ```
+### Infrastructure
+- AWS SAM (Serverless Application Model)
+- CloudFront CDN
+- S3 Static Hosting
+- IAM Roles & Policies
 
-2. **Set up environment:**
-   ```bash
-   cp .env.example .env
-   # Add your OpenAI API key to .env
-   ```
+## 🚀 Quick Start (Local Development)
 
-3. **Start development servers:**
-   ```bash
-   npm run dev
-   ```
+### Prerequisites
+- Node.js 18+ and npm
+- AWS CLI configured with credentials
+- AWS SAM CLI installed
 
-   This starts both backend (port 3001) and frontend (port 3000).
+### 1. Clone and Install
+```bash
+git clone <your-repo-url>
+cd ctc-tutor
+npm run install:all
+```
 
-4. **Open your browser:**
-   ```
-   http://localhost:3000
-   ```
+### 2. Set Up Environment Variables
+```bash
+# Backend
+cp backend/.env.example backend/.env
+# Add your AWS credentials and region
+
+# Frontend
+cp frontend/.env.example frontend/.env
+# Set REACT_APP_API_URL=http://localhost:3001/api
+```
+
+### 3. Start Development Servers
+```bash
+npm run dev
+```
+
+This starts:
+- Backend: http://localhost:3001
+- Frontend: http://localhost:3000
+
+## 🚀 Deploy to AWS
+
+### Full Stack Deployment
+
+```bash
+# Deploy backend (Lambda + API Gateway)
+cd backend
+sam build
+sam deploy --guided
+
+# Deploy frontend (S3 + CloudFront)
+cd ../frontend
+npm run build
+aws s3 sync build/ s3://your-bucket-name
+aws cloudfront create-invalidation --distribution-id YOUR_ID --paths "/*"
+```
+
+### Automated Deployment Script
+```bash
+./deploy-aws.sh
+```
+
+See [Setup Guide](docs/SETUP.md) for detailed deployment instructions.
 
 ## 📁 Project Structure
 
 ```
 ctc-tutor/
-├── 📱 frontend/              # React TypeScript app
+├── 📱 frontend/                    # React PWA
 │   ├── src/
-│   │   ├── components/       # Reusable UI components
+│   │   ├── components/             # UI components
 │   │   │   ├── ConceptExplainer.tsx
 │   │   │   ├── CodeAnalyzer.tsx
-│   │   │   ├── ExplanationCard.tsx
-│   │   │   └── ...
-│   │   ├── App.tsx          # Main application
-│   │   └── index.tsx        # Entry point
+│   │   │   ├── ViroAssistant.tsx
+│   │   │   ├── Dictionary.tsx
+│   │   │   └── VisionUpload.tsx
+│   │   ├── hooks/
+│   │   │   └── useVoiceInput.ts    # Voice input hook
+│   │   ├── contexts/
+│   │   │   └── LanguageContext.tsx # 10 language support
+│   │   └── services/
+│   │       └── api.ts              # API client
 │   └── package.json
-├── 🔧 backend/              # Express TypeScript API
+├── 🔧 backend/                     # AWS Lambda functions
 │   ├── src/
-│   │   ├── routes/          # API endpoints
-│   │   ├── services/        # Business logic
-│   │   │   ├── aiService.ts      # OpenAI integration
-│   │   │   └── adaptiveService.ts # Learning adaptation
-│   │   └── server.ts        # Express server
+│   │   ├── lambda/handlers/        # 5 Lambda handlers
+│   │   │   ├── conceptExplainer.ts
+│   │   │   ├── codeAnalyzer.ts
+│   │   │   ├── viroAssistant.ts
+│   │   │   ├── dictionaryService.ts
+│   │   │   └── visionAnalyzer.ts
+│   │   └── services/
+│   │       ├── bedrockService.ts   # Amazon Bedrock integration
+│   │       └── responseParser.ts   # AI response parsing
+│   ├── template.yaml               # AWS SAM template
 │   └── package.json
-├── 🔗 shared/               # Shared TypeScript types
-│   └── types.ts
-├── 📚 docs/                 # Documentation
-│   ├── API.md              # API documentation
-│   ├── SETUP.md            # Detailed setup guide
-│   ├── ROLLBACK.md         # Rollback procedures
-│   └── ROLLBACK_QUICK_REFERENCE.md  # Quick rollback guide
-└── package.json            # Root package manager
+├── 📚 docs/                        # Documentation
+│   ├── AWS_ARCHITECTURE.md
+│   ├── HACKATHON_DOCUMENTATION.md
+│   ├── HACKATHON_DEMO_SCRIPT.md
+│   └── SETUP.md
+├── 🖼️ generated-diagrams/
+│   └── ctc-tutor-aws-architecture.png
+├── deploy-aws.sh                   # Deployment script
+└── README.md
 ```
 
-## 🎯 MVP Scope (Hackathon Ready)
+## 👥 Team
 
-- ✅ **Subject Focus**: Data Structures & Algorithms
-- ✅ **Language Support**: Python code generation + 4 other languages for analysis
-- ✅ **AI Features**: GPT-4 powered explanations with adaptive learning
-- ✅ **Visual Support**: Mermaid diagrams for concept visualization
-- ✅ **No Auth Required**: Focus on core learning experience
-- ✅ **Responsive Design**: Works on desktop and mobile
-- ✅ **Real-time Feedback**: User confusion tracking and adaptation
+- **Developer**: [Your Name]
+- **Institution**: [Your College/University]
+- **Contact**: [Your Email]
+
+## 📊 Impact & Metrics
+
+- **Target Users**: 10M+ students in rural India
+- **Languages Supported**: 10 Indian languages
+- **Cost**: Free for all users
+- **Accessibility**: Works offline, low bandwidth friendly
+- **AWS Free Tier**: Operates within free tier limits
+
+## 🎥 Demo & Documentation
+
+- **Live Demo**: https://d3hrbeknvapj0l.cloudfront.net
+- **Demo Video**: [Add your video link]
+- **Architecture Docs**: [docs/AWS_ARCHITECTURE.md](docs/AWS_ARCHITECTURE.md)
+- **Hackathon Docs**: [docs/HACKATHON_DOCUMENTATION.md](docs/HACKATHON_DOCUMENTATION.md)
+- **Demo Script**: [docs/HACKATHON_DEMO_SCRIPT.md](docs/HACKATHON_DEMO_SCRIPT.md)
+
+## 🏆 Why This Project Matters
+
+1. **Democratizes Education**: Makes programming accessible in regional languages
+2. **AI-Powered Personalization**: Adapts to each student's learning pace
+3. **Offline-First**: Works in low-connectivity rural areas
+4. **Scalable**: Serverless architecture handles millions of users
+5. **Cost-Effective**: AWS free tier keeps it free for students
 
 ## 🔧 Available Scripts
 
 ```bash
-# Install all dependencies (frontend + backend)
+# Install all dependencies
 npm run install:all
 
-# Start both servers in development mode
+# Start development servers
 npm run dev
 
-# Build frontend for production
+# Build for production
 npm run build
 
-# Start production server
-npm start
+# Deploy to AWS
+./deploy-aws.sh
 ```
 
 ## 🚀 Deployment Options
 
-### AWS Lambda (Primary)
-Deploy as serverless functions with Amazon Bedrock:
+### AWS Lambda (Primary - Production)
 ```bash
 ./deploy-aws.sh
 ```
-See [AWS Deployment Guide](AWS_DEPLOYMENT_GUIDE.md) for details.
 
-### Railway (Backup - Recommended)
-Deploy Express backend to Railway as backup:
+### Railway (Backup)
 ```bash
 cd backend
-./deploy-railway.sh       # Bash
-./deploy-railway.ps1      # PowerShell
+./deploy-railway.sh
 ```
 
-### Vercel (Alternative Backup)
-Deploy to Vercel (note: has AWS SDK limitations):
-```bash
-cd backend
-./deploy-vercel.sh
-```
-
-**Documentation:**
-- Quick start: [`BACKUP_DEPLOYMENT_QUICK_START.md`](BACKUP_DEPLOYMENT_QUICK_START.md)
-- Full guide: [`backend/BACKUP_DEPLOYMENT_GUIDE.md`](backend/BACKUP_DEPLOYMENT_GUIDE.md)
-- URL tracking: [`backend/BACKUP_DEPLOYMENT_URLS.md`](backend/BACKUP_DEPLOYMENT_URLS.md)
-
-## 🔄 Rollback Procedures
-
-If you need to revert from AWS Bedrock Lambda deployment to Express + OpenAI:
-
-### Quick Rollback (30 seconds)
-```bash
-# Linux/Mac
-./rollback.sh
-
-# Windows
-.\rollback.ps1
-```
-
-### Manual Rollback
-1. Edit `backend/.env`: Set `USE_BEDROCK=false`
-2. Start Express: `cd backend && npm run dev`
-3. Edit `frontend/.env`: Set `REACT_APP_API_URL=http://localhost:3001/api`
-4. Start frontend: `cd frontend && npm start`
-
-**Documentation:**
-- Full guide: [`docs/ROLLBACK.md`](docs/ROLLBACK.md)
-- Quick reference: [`docs/ROLLBACK_QUICK_REFERENCE.md`](docs/ROLLBACK_QUICK_REFERENCE.md)
-
-## 📖 Usage Examples
-
-### Concept Learning
-1. Enter a topic like "Binary Search" or "Dynamic Programming"
-2. Get structured explanations from intuitive to technical
-3. See visual diagrams and step-by-step breakdowns
-4. Review code implementations with annotations
-5. Learn from common mistakes and get revision summaries
-
-### Code Analysis
-1. Paste your code in any supported language
-2. Get line-by-line explanations
-3. Identify inefficiencies and logic issues
-4. See improved versions when applicable
+See deployment documentation for details.
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature-name`
-3. Make your changes and test thoroughly
-4. Commit with clear messages: `git commit -m "Add feature"`
-5. Push and create a Pull Request
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📄 License
 
@@ -200,11 +263,13 @@ MIT License - see LICENSE file for details.
 
 ## 🙏 Acknowledgments
 
-- OpenAI for GPT-4 API
-- Mermaid.js for diagram generation
+- AWS for Amazon Bedrock and serverless infrastructure
+- Anthropic for Claude AI models
 - React and Node.js communities
-- All contributors and testers
+- AI for Bharat Hackathon organizers
 
 ---
 
-**Built with ❤️ for better learning experiences**
+**Built with ❤️ for students across Bharat**
+
+*Making quality programming education accessible to everyone, everywhere, in every language.*
