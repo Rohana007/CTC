@@ -1,0 +1,19 @@
+{
+  "name": "ctc-tutor",
+  "version": "1.0.0",
+  "description": "AI-powered Concept-to-Code learning assistant",
+  "main": "start.js",
+  "scripts": {
+    "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install",
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm start\"",
+    "build": "cd frontend && npm run build",
+    "start": "node start.js",
+    "start:prod": "cd backend && npm start"
+  },
+  "keywords": ["ai", "education", "learning", "programming", "tutorial"],
+  "author": "CTC Tutor Team",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

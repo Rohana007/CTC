@@ -1,0 +1,8 @@
+{
+  "name": "ctc-tutor-lambda-layer",
+  "version": "1.0.0",
+  "description": "Shared dependencies for CTC Tutor Lambda functions",
+  "dependencies": {
+    "@aws-sdk/client-bedrock-runtime": "^3.1000.0"
+  }
+}
