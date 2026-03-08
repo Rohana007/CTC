@@ -7,7 +7,7 @@ An AI-powered educational platform that makes programming accessible to students
 ## 🌐 Live Demo
 
 - **Production URL**: https://d3hrbeknvapj0l.cloudfront.net
-- **Demo Video**: [Watch Demo](YOUR_DEMO_VIDEO_LINK_HERE)
+- **Demo Video**: https://youtu.be/AmHjFZov7bc
 - **API Endpoint**: https://x1gs5a0o8a.execute-api.us-east-1.amazonaws.com/dev
 
 ## 🎯 Problem Statement
@@ -194,9 +194,8 @@ ctc-tutor/
 
 ## 👥 Team
 
-- **Developer**: [Your Name]
-- **Institution**: [Your College/University]
-- **Contact**: [Your Email]
+- **Developer**: Rohana S Mhaishale
+- **Contact**:rohanamhaishale@gmail.com
 
 ## 📊 Impact & Metrics
 
@@ -209,7 +208,7 @@ ctc-tutor/
 ## 🎥 Demo & Documentation
 
 - **Live Demo**: https://d3hrbeknvapj0l.cloudfront.net
-- **Demo Video**: [Add your video link]
+- **Demo Video**: https://youtu.be/AmHjFZov7bc
 - **Architecture Docs**: [docs/AWS_ARCHITECTURE.md](docs/AWS_ARCHITECTURE.md)
 - **Hackathon Docs**: [docs/HACKATHON_DOCUMENTATION.md](docs/HACKATHON_DOCUMENTATION.md)
 - **Demo Script**: [docs/HACKATHON_DEMO_SCRIPT.md](docs/HACKATHON_DEMO_SCRIPT.md)
